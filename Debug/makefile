@@ -64,7 +64,7 @@ main-build: myTmux
 myTmux: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	g++  -o "myTmux" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "myTmux" $(OBJS) $(USER_OBJS) $(LIBS) -lncurses -lpanel
 	@echo 'Finished building target: $@'
 	@echo ' '
 
