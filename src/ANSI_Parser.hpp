@@ -3,7 +3,7 @@
 
 constexpr char BLANKCHAR = ' ';
 
-constexpr bool logCommands = true;
+constexpr bool logCommands = false;
 
 template<typename T>
 struct processItem {
@@ -304,8 +304,25 @@ void setAttributes(WINDOW *win, int arg, const CSI &data) {
 	}
 }
 
-void setColors(WINDOW *win, int arg0, const CSI &data) {
-	switch (arg0) {
+void setColor48(WINDOW *win, const CSI &data) {
+//set backGround
+	if (data.args[1] == 5 && data.args[2] == 1000) {
+		setBgSameAsFg(win);
+	} else {
+		logItems("setColor48 ", CSItoString(data), " <-- unkowen !!");
+	}
+}
+void setColor38(WINDOW *win, const CSI &data) {
+// set forGround
+	if (data.args[1] == 5 && data.args[2] == 1000) {
+		setFgSameAsBg(win);
+	} else {
+		logItems("setColor38 ", CSItoString(data), " <-- unkowen !!");
+	}
+}
+
+void setColors(WINDOW *win, const CSI &data) {
+	switch (data.args[0]) {
 	case 30:
 		setFgColor(win, COLOR_BLACK);
 		break;
@@ -408,6 +425,12 @@ void setColors(WINDOW *win, int arg0, const CSI &data) {
 	case 107:
 		setBgColorBright(win, COLOR_WHITE);
 		break;
+	case 38:
+		setColor38(win, data);
+		break;
+	case 48:
+		setColor48(win, data);
+		break;
 	default:
 		logItems("setColors ", CSItoString(data), " <-- unkowen !!");
 		break;
@@ -423,7 +446,7 @@ void CSI_GRP(WINDOW *win, const CSI &data) {
 			if (arg <= 28) {
 				setAttributes(win, arg, data);
 			} else if ((30 <= arg && arg <= 49) || (90 <= arg && arg <= 1070)) {
-				setColors(win, arg, data);
+				setColors(win, data);
 			} else {
 				logItems("CSI_GRP ", std::to_string(arg), " <-- unkowen !!");
 			}
