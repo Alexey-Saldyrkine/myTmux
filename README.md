@@ -9,3 +9,14 @@ Uses ncurses to control terminal display.
 The application creates a pty (pseudoterminal) using linux system calls for each subterminal. The slave side of the pty runs on a separate thread, while the master side is used by the main terminal. When, in the terminal, a subterminal is selected all key presses are passed the salve side of that's subterminal pty. The pty acts exactly the same as any other terminal, as all modern terminals are pty. The salve pty accepts the key presses, as if it was not a subterminal, meaning anything you can do in a terminal you can do in a subterminal. The master pty reads the output of the salve pty and translates it to the subwindow. The translation processes most [ANSI codes](https://man7.org/linux/man-pages/man4/console_codes.4.html) into ncurses calls on the sub window. This includes cursor movement, screen modifiers, color, operating system control codes.
 
 #examples:
+1. myTmux, with two subterminals. The left subterminal is selected.
+
+![img1](/images/img1.png)
+
+2. On the left subterminal the command 'ls -ltr' is run. On the right subterminal the command 'cd ~/eclipse' and then the command 'ls'.
+
+![img2](/images/img2.png)
+
+3. The right subterminal is removed and on the left the command 'htop' is run.
+
+![img3](/images/img3.png)
