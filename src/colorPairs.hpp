@@ -28,6 +28,20 @@ void initColors() {
 	}
 }
 
+void setFgSameAsBg(WINDOW *win) {
+	chtype cur = winch(win);
+	short int curPair = cur & A_COLOR;
+	short int bgColor = curPair / 9;
+	wattron(win, COLOR_PAIR(bgColor + bgColor*9));
+}
+
+void setBgSameAsFg(WINDOW *win) {
+	chtype cur = winch(win);
+	short int curPair = cur & A_COLOR;
+	short int fgColor = curPair % 9;
+	wattron(win, COLOR_PAIR(fgColor + fgColor*9));
+}
+
 void setFgColor(WINDOW *win, short int fg) {
 	short int fgColor = (fg == 99 ? 0 : fg + 1);
 	chtype cur = winch(win);

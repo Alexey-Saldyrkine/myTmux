@@ -143,7 +143,7 @@ struct controlWindow: button_interface {
 			static int i = 0;
 			manager->addWindow(
 					std::make_unique<terminalScreen>(
-							screenArea { (3 + i % 5), (3 + i % 5), 20, 70 }));
+							screenArea { (3 + i % 5), (3 + i % 5), 30, 70 }));
 			i++;
 		}
 	}
