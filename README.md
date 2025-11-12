@@ -20,3 +20,7 @@ The application creates a pty (pseudoterminal) using linux system calls for each
 3. The right subterminal is removed and on the left the command 'htop' is run.
 
 ![img3](/images/img3.png)
+
+4. Two terminals layered one over another
+
+![img4](/images/img4.png)
